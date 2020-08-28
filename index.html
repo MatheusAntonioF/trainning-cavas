@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas trainning</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Canvas</h1>
+
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script>
+      let ctx = document.getElementById('canvas').getContext('2d');
+
+      ctx.font = '20px sans-serif';
+
+      const centerCircle = 300;
+
+      let radiusCircle = 0;
+      let x = 0;
+      let y = 0;
+      let angle = 45;
+      let fillTextPoint = 0;
+
+      // loop to make layers of circle
+      for (i = 0; i <= 10; i++) {
+        ctx.arc(centerCircle, centerCircle, radiusCircle, 0, Math.PI * 2);
+
+        // loop to make lines and poitn
+        for (j = 1; j <= 8; j++) {
+          const alfaAngle = toRadians(angle);
+          x = radiusCircle * Math.cos(alfaAngle) + centerCircle;
+          y = radiusCircle * Math.sin(alfaAngle) + centerCircle;
+
+          ctx.moveTo(centerCircle, centerCircle);
+          ctx.lineTo(x, y);
+
+          let point = new Path2D();
+
+          // add point
+          point.arc(x, y, 10, 0, Math.PI * 2);
+
+          // add number to point
+          ctx.fillText(fillTextPoint, x - 5, y + 7);
+
+          ctx.stroke(point);
+
+          angle += 45;
+        }
+        fillTextPoint++;
+        radiusCircle += 28;
+      }
+
+      // // Make lines
+      // for (i = 1; i <= 8; i++) {
+      //   const alfaAngle = toRadians(angle);
+
+      //   x = radiusCircle * Math.cos(alfaAngle) + centerCircle;
+
+      //   y = radiusCircle * Math.sin(alfaAngle) + centerCircle;
+
+      //   ctx.moveTo(centerCircle, centerCircle);
+
+      //   ctx.lineTo(x, y);
+
+      //   // points
+      //   let region = new Path2D();
+
+      //   region.arc(x, y, 10, 0, Math.PI * 2);
+
+      //   // add background to points
+      //   ctx.fillStyle = 'blue';
+      //   ctx.fill(region);
+
+      //   angle += 45;
+      // }
+
+      // add background to points
+      // ctx.fillStyle = 'blue';
+
+      function toRadians(deg) {
+        return (deg * Math.PI) / 180;
+      }
+
+      ctx.stroke();
+    </script>
+  </body>
+</html>
